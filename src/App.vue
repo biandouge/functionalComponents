@@ -1,17 +1,41 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+<div id="app">
+  <button @click="normalCount = 10000">生成10000个普通组件</button>
+  <button @click="functionalCount = 10000">生成10000个函数组件</button>
+  <div class="container">
+    <div class="item">
+      <NormalComp v-for="n in normalCount" :key="n" :count="n"></NormalComp>
+    </div>
+
+    <div class="item">
+      <FunctionalComp
+      v-for="n in functionalCount"
+      :key="n"
+      :count="n"
+      ></FunctionalComp>
+    </div>
   </div>
+</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import NormalComp from "./components/NormalComp.vue";
+import FunctionalComp from "./components/FunctionalComp.vue";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    NormalComp,
+    FunctionalComp,
+  },
+  data(){
+    return{
+      functionalCount: 0,
+      normalCount: 0,
+    }
+  },
+  mounted(){
+    window.vm = this;
   }
 }
 </script>
@@ -24,5 +48,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.container{
+  display: flex;
+  justify-content: center;
+
 }
 </style>
